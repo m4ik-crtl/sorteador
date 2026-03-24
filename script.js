@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Seletores de Elementos (adicionados seletores do modal) ---
+    // --- Seletores de Elementos ---
     const nameInput = document.getElementById('nameInput');
     const addBtn = document.getElementById('addBtn');
     const drawBtn = document.getElementById('drawBtn');
     const countdownEl = document.getElementById('countdown');
     const winnerEl = document.getElementById('winner');
-    const orderBtn = document.getElementById('orderBtn'); // Botão para abrir o modal
+    const orderBtn = document.getElementById('orderBtn'); 
     const downloadBtn = document.getElementById('downloadBtn');
     const restartBtn = document.getElementById('restartBtn');
     const container = document.querySelector('.container');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Funções Principais ---
 
     function initializeApp() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // Dark theme as default looks more conceptual
         document.body.classList.toggle('dark-mode', savedTheme === 'dark');
         const savedParticipants = JSON.parse(localStorage.getItem('participants'));
         if (savedParticipants && savedParticipants.length > 0) {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderParticipants() {
         participantsListEl.innerHTML = '';
         if (participants.length === 0) {
-            participantsListEl.innerHTML = '<p style="text-align: center; color: var(--text-color); opacity: 0.7;">Nenhum participante adicionado.</p>';
+            participantsListEl.innerHTML = '<p style="text-align: center; color: var(--text-color); opacity: 0.5; font-weight: 400; width: 100%;">Nenhum participante adicionado.</p>';
         } else {
             participants.forEach((participant, index) => {
                 const tag = document.createElement('div');
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         container.classList.add('results-view');
-        orderBtn.style.display = 'none'; // Esconde o botão até o sorteio terminar
+        orderBtn.style.display = 'none'; 
         
         let count = 3;
         countdownEl.innerHTML = `Sorteando em... ${count}`;
@@ -112,30 +112,38 @@ document.addEventListener('DOMContentLoaded', () => {
             currentIndex = (currentIndex + 1) % shuffledForRoulette.length;
             winnerEl.innerHTML = `<strong>${shuffledForRoulette[currentIndex]}</strong>`;
         }, spinInterval);
+        
         setTimeout(() => {
             clearInterval(rouletteInterval);
             sortedParticipants = shuffleArray([...participants]);
             const finalWinner = sortedParticipants[0];
             winnerEl.innerHTML = `🏆 Vencedor(a): <strong>${finalWinner}</strong>`;
-            confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+            
+            // Ajuste nas cores do Confetti para combinar com o novo tema
+            confetti({ 
+                particleCount: 150, 
+                spread: 90, 
+                origin: { y: 0.6 },
+                colors: ['#6366f1', '#8b5cf6', '#d946ef', '#ffffff'] 
+            });
+            
             orderBtn.style.display = sortedParticipants.length > 1 ? 'flex' : 'none';
         }, animationDuration);
     }
 
-    // --- NOVAS FUNÇÕES PARA O MODAL ---
     function openRankingModal() {
-        rankingListModal.innerHTML = ''; // Limpa a lista antes de preencher
+        rankingListModal.innerHTML = ''; 
         for (let i = 0; i < sortedParticipants.length; i++) {
             const li = document.createElement('li');
             const place = i === 0 ? '🏆' : `${i + 1}º`;
-            li.innerHTML = `<strong>${place}:</strong> ${sortedParticipants[i]}`;
+            li.innerHTML = `<strong style="color: var(--primary-color)">${place}:</strong> ${sortedParticipants[i]}`;
             rankingListModal.appendChild(li);
         }
-        rankingModal.classList.add('active'); // Mostra o modal
+        rankingModal.classList.add('active'); 
     }
 
     function closeRankingModal() {
-        rankingModal.classList.remove('active'); // Esconde o modal
+        rankingModal.classList.remove('active'); 
     }
 
     function downloadResults() {
@@ -146,11 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'resultado_sorteio_aiqon.txt';
+        link.download = 'resultado_sorteio.txt';
         link.click();
     }
     
-    // A função de "Novo Sorteio" agora limpa a lista e reinicia a tela
     function newSweepstakes() {
         if (confirm('Deseja iniciar um NOVO SORTEIO? A lista de participantes será limpa.')) {
             participants = [];
@@ -163,18 +170,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Event Listeners (ATUALIZADOS) ---
+    // --- Event Listeners ---
     addBtn.addEventListener('click', addParticipants);
     drawBtn.addEventListener('click', startCountdown);
     clearBtn.addEventListener('click', clearAllParticipants);
     downloadBtn.addEventListener('click', downloadResults);
     restartBtn.addEventListener('click', newSweepstakes);
     
-    // Eventos do Modal
     orderBtn.addEventListener('click', openRankingModal);
     modalCloseBtn.addEventListener('click', closeRankingModal);
     rankingModal.addEventListener('click', (e) => {
-        // Fecha o modal se clicar no fundo escuro (overlay)
         if (e.target === rankingModal) {
             closeRankingModal();
         }
