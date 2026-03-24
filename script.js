@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Seletores de Elementos ---
     const nameInput = document.getElementById('nameInput');
     const addBtn = document.getElementById('addBtn');
     const drawBtn = document.getElementById('drawBtn');
@@ -13,21 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const clearBtn = document.getElementById('clearBtn');
     
-    // Seletores do Modal
     const rankingModal = document.getElementById('rankingModal');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const rankingListModal = document.getElementById('rankingListModal');
 
-
-    // --- Estado da Aplicação ---
     let participants = [];
     let sortedParticipants = [];
 
-    // --- Funções Principais ---
-
     function initializeApp() {
-        const savedTheme = localStorage.getItem('theme') || 'dark'; // Dark theme as default looks more conceptual
+        // Agora inicia no modo escuro por padrão, que combina mais com a "vibe portfólio"
+        const savedTheme = localStorage.getItem('theme') || 'dark'; 
         document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+        
         const savedParticipants = JSON.parse(localStorage.getItem('participants'));
         if (savedParticipants && savedParticipants.length > 0) {
             participants = savedParticipants;
@@ -38,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderParticipants() {
         participantsListEl.innerHTML = '';
         if (participants.length === 0) {
-            participantsListEl.innerHTML = '<p style="text-align: center; color: var(--text-color); opacity: 0.5; font-weight: 400; width: 100%;">Nenhum participante adicionado.</p>';
+            participantsListEl.innerHTML = '<p style="text-align: center; color: var(--text-color); opacity: 0.4; font-weight: 400; width: 100%;">Nenhum participante adicionado.</p>';
         } else {
             participants.forEach((participant, index) => {
                 const tag = document.createElement('div');
@@ -90,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
         orderBtn.style.display = 'none'; 
         
         let count = 3;
-        countdownEl.innerHTML = `Sorteando em... ${count}`;
+        countdownEl.innerHTML = `> PROCESSANDO... ${count}`; // Toque dev no texto
         const interval = setInterval(() => {
             count--;
-            countdownEl.innerHTML = `Sorteando em... ${count}`;
+            countdownEl.innerHTML = `> PROCESSANDO... ${count}`;
             if (count === 0) {
                 clearInterval(interval);
                 countdownEl.innerHTML = '';
@@ -108,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let rouletteInterval;
         const shuffledForRoulette = shuffleArray([...participants]);
         let currentIndex = 0;
+        
         rouletteInterval = setInterval(() => {
             currentIndex = (currentIndex + 1) % shuffledForRoulette.length;
             winnerEl.innerHTML = `<strong>${shuffledForRoulette[currentIndex]}</strong>`;
@@ -119,12 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const finalWinner = sortedParticipants[0];
             winnerEl.innerHTML = `🏆 Vencedor(a): <strong>${finalWinner}</strong>`;
             
-            // Ajuste nas cores do Confetti para combinar com o novo tema
+            // Confetes agora com a paleta de cores Verde Cyber/Menta
             confetti({ 
                 particleCount: 150, 
-                spread: 90, 
+                spread: 100, 
                 origin: { y: 0.6 },
-                colors: ['#6366f1', '#8b5cf6', '#d946ef', '#ffffff'] 
+                colors: ['#00ff88', '#00cc6a', '#34d399', '#ffffff'] 
             });
             
             orderBtn.style.display = sortedParticipants.length > 1 ? 'flex' : 'none';
@@ -136,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < sortedParticipants.length; i++) {
             const li = document.createElement('li');
             const place = i === 0 ? '🏆' : `${i + 1}º`;
-            li.innerHTML = `<strong style="color: var(--primary-color)">${place}:</strong> ${sortedParticipants[i]}`;
+            li.innerHTML = `<strong style="color: var(--primary-color)">[${place}]</strong> ${sortedParticipants[i]}`;
             rankingListModal.appendChild(li);
         }
         rankingModal.classList.add('active'); 
@@ -147,9 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function downloadResults() {
-        let text = `🏆 Vencedor(a): ${sortedParticipants[0]}\n\n--- Ranking Completo ---\n`;
+        let text = `=========================\n🏆 VENCEDOR: ${sortedParticipants[0]}\n=========================\n\n--- Ranking Completo ---\n`;
         sortedParticipants.forEach((participant, index) => {
-            text += `${index + 1}º lugar: ${participant}\n`;
+            text += `[${index + 1}º] ${participant}\n`;
         });
         const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
