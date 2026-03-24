@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteador Pro</title>
+    <title>Sorteador | Modo Verde</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
-<body>
-    <div class="background-mesh"></div>
+<body class="dark-mode"> <div class="background-mesh"></div>
 
     <div class="theme-switcher">
         <button id="theme-toggle" aria-label="Alternar tema">
@@ -31,7 +30,7 @@
                 <div id="participants-list"></div>
             </div>
             <button id="addBtn"><i class="fas fa-plus"></i> Adicionar</button>
-            <button id="drawBtn" class="primary-btn"><i class="fas fa-wand-magic-sparkles"></i> Sortear</button>
+            <button id="drawBtn" class="primary-btn"><i class="fas fa-bolt"></i> Sortear</button>
             <button id="clearBtn" class="secondary-btn"><i class="fas fa-trash-can"></i> Limpar Tudo</button>
         </div>
 
@@ -41,7 +40,7 @@
             <hr class="result-divider">
             <div class="action-buttons">
                 <button id="orderBtn"><i class="fas fa-ranking-star"></i> Mostrar Ranking</button>
-                <button id="downloadBtn"><i class="fas fa-file-arrow-down"></i> Baixar Resultado</button>
+                <button id="downloadBtn"><i class="fas fa-file-code"></i> Baixar Resultado</button>
                 <button id="restartBtn" class="secondary-btn"><i class="fas fa-rotate-right"></i> Novo Sorteio</button>
             </div>
         </div>
