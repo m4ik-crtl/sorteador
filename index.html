@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteador Aiqon Moderno</title>
+    <title>Sorteador Pro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <div class="background-waves"></div>
+    <div class="background-mesh"></div>
 
     <div class="theme-switcher">
-        <button id="theme-toggle">
+        <button id="theme-toggle" aria-label="Alternar tema">
             <i class="fas fa-moon"></i>
             <i class="fas fa-sun"></i>
         </button>
     </div>
 
     <div class="container">
-        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MzcuOCAxNzQuMiI+CiAgPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI5LjYuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDIuMS4xIEJ1aWxkIDkpICAtLT4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLnN0MCwgLnN0MSB7CiAgICAgICAgZmlsbDogZ3JheTsKICAgICAgfQoKICAgICAgLnN0MSB7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CgogICAgICAuc3QyIHsKICAgICAgICBmaWxsOiAjMDA5NGE5OwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MjcuMiw1MC44Yy03LjQtNy40LTE2LjYtMTAuOC0yNy0xMC44cy0xOS41LDMuNS0yNi45LDEwLjljLTcuNiw3LjYtMTAuOSwxNy4yLTEwLjksMjcuOHY1Ny4xaDE1di01Ni4yYzAtNi44LDEuOS0xMyw2LjYtMTgsNC40LTQuNiw5LjctNi45LDE2LjEtNi45czExLjcsMi4yLDE2LjEsNi45YzQuOCw1LDYuNiwxMS4yLDYuNiwxOHY1Ni4yaDE1di01Ny4xYy4yLTEwLjYtMy0yMC4zLTEwLjYtMjcuOWgwWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwNC4zLDM3LjdjLTI3LjIsMC00OS40LDIyLjEtNDkuNCw0OS40czIyLjEsNDkuNCw0OS40LDQ5LjQsNDkuNC0yMi4xLDQ5LjQtNDkuNC0yMi4yLTQ5LjQtNDkuNC00OS40Wk00MDQuMywxMjAuNWMtMTguNCwwLTMzLjQtMTUtMzMuNC0zMy40czE1LTMzLjQsMzMuNC0zMy40LDMzLjQsMTUsMzMuNCwzMy40LTE1LDMzLjQtMzMuNCwzMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTMwMSw0MGMtMTIuNiwwLTIzLjUsNC42LTMyLjEsMTMuOC05LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjItLjYsMTMuNS0yLjF2LTE1LjhjLS40LjItLjguNC0xLjIuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcuMSw5LjEtMjMuN2M1LjYtNS45LDEyLjMtOS41LDIwLjUtOS41czE1LjcsMy4xLDIxLjQsOS43YzUuOSw2LjgsOC42LDE0LjYsOC42LDIzLjZ2ODYuMmgxNXYtODYuM2MwLTEzLTMuOS0yNC43LTEzLTM0LjItOC41LTkuMS0xOS4zLTEzLjctMzEuOS0xMy43aDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjI5LjUsNDBoMTV2OTUuN2gtMTVWNDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTczLjEsNDBjLTEyLjYsMC0yMy41LDQuNi0zMi4xLDEzLjgtOC45LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjEtLjYsMTMuNC0yLjF2LTE1LjdjLS40LjItLjcuNC0xLjEuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcsOS4xLTIzLjdjNS42LTUuOSwxMi4zLTkuNSwyMC41LTkuNXMxNS43LDMuMSwyMS40LDkuNmM1LjksNi44LDguNiwxNC42LDguNiwyMy42djE1aC0uMXYyMC42aC4xYzAsMCwwLDEyLjIsMCwxMi4yaDE1di00Ny45YzAtMTMtMy45LTI0LjctMTMtMzQuMi04LjYtOS4xLTE5LjQtMTMuNy0zMS45LTEzLjdoMFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMy4zLDQ4LjZjLTcsMjQuMiwzNi43LDQyLjIsNTMuOCw3MC44LDE2LjgsMjguMi0yLjQsNDMuMS0xNi41LDU0LjgsNS42LTE4LjUtMTctMzAuMy0zNi42LTUyLTE5LjQtMjEuMi0xNy43LTUwLjItLjctNzMuNloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MiIgZD0iTTYyLjQsMGMtOC42LDI5LjcsNTEuMiw0MS45LDUwLjgsODUuOCwwLDEzLjctNi43LDI1LjktMTYuMiw0MC40LDguMS0xNi41LTE5LjctMzYuOC0zOS40LTU4LjRDMzguNCw0Ni42LDI3LjQsMjIuNSw2Mi40LDBaIi8+Cjwvc3ZnPg==" alt="Logo Aiqon" class="logo">
-        <h1>Sorteador Aiqon</h1>
+        <div class="logo-icon">
+            <i class="fas fa-dice-d20"></i>
+        </div>
+        <h1>Sorteador</h1>
         
         <div class="input-section">
             <textarea id="nameInput" placeholder="Digite os nomes, separados por vírgula ou quebra de linha..."></textarea>
@@ -29,8 +31,8 @@
                 <div id="participants-list"></div>
             </div>
             <button id="addBtn"><i class="fas fa-plus"></i> Adicionar</button>
-            <button id="drawBtn"><i class="fas fa-ticket-alt"></i> Sortear</button>
-            <button id="clearBtn" class="secondary-btn"><i class="fas fa-trash"></i> Limpar Tudo</button>
+            <button id="drawBtn" class="primary-btn"><i class="fas fa-wand-magic-sparkles"></i> Sortear</button>
+            <button id="clearBtn" class="secondary-btn"><i class="fas fa-trash-can"></i> Limpar Tudo</button>
         </div>
 
         <div class="result-section">
@@ -38,9 +40,9 @@
             <div id="winner" class="result"></div>
             <hr class="result-divider">
             <div class="action-buttons">
-                <button id="orderBtn"><i class="fas fa-list-ol"></i> Mostrar Ranking</button>
-                <button id="downloadBtn"><i class="fas fa-download"></i> Baixar Resultado</button>
-                <button id="restartBtn"><i class="fas fa-redo"></i> Novo Sorteio</button>
+                <button id="orderBtn"><i class="fas fa-ranking-star"></i> Mostrar Ranking</button>
+                <button id="downloadBtn"><i class="fas fa-file-arrow-down"></i> Baixar Resultado</button>
+                <button id="restartBtn" class="secondary-btn"><i class="fas fa-rotate-right"></i> Novo Sorteio</button>
             </div>
         </div>
     </div>
@@ -49,8 +51,7 @@
         <div class="modal-content">
             <button id="modalCloseBtn" class="modal-close">&times;</button>
             <h2>Ranking Completo</h2>
-            <ul id="rankingListModal">
-                </ul>
+            <ul id="rankingListModal"></ul>
         </div>
     </div>
 
